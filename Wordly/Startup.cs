@@ -14,7 +14,7 @@ using Wordly.Models;
 
 namespace Wordly
 {
-    public class Startup
+     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
