@@ -1,12 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Wordly.Models
+namespace Wordly.Dtos
 {
-    public class Word
+    public class WordCreateDto
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         public string Body { get; set; }
 

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Wordly.Models
+namespace Wordly.Dtos
 {
-    public class Word
+    public class WordReadDto
     {
         [Key]
         public int Id { get; set; }
@@ -10,6 +10,7 @@ namespace Wordly.Models
         [Required]
         public string Body { get; set; }
 
+        [Required]
         public string Meaning { get; set; }
     }
 }
