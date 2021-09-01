@@ -17,5 +17,7 @@ namespace Wordly.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        public DbSet<Word> Words { get; set; }
     }
 }
