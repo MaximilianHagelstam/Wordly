@@ -8,5 +8,6 @@ namespace Wordly.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public List<Word> Words { get; set; }
     }
 }
