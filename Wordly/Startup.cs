@@ -9,12 +9,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using Wordly.Data;
 using Wordly.Models;
 
 namespace Wordly
 {
-     public class Startup
+    public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -49,6 +50,10 @@ namespace Wordly
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddScoped<IWordRepo, MockWordRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

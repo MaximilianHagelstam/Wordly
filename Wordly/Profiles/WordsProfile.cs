@@ -4,9 +4,9 @@ using Wordly.Models;
 
 namespace Wordly.Profiles
 {
-    public class WordProfile : Profile
+    public class WordsProfile : Profile
     {
-        public WordProfile()
+        public WordsProfile()
         {
             CreateMap<Word, WordReadDto>();
             CreateMap<WordCreateDto, Word>();
