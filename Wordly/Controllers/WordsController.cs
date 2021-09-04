@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Wordly.Data;
 using Wordly.Models;
@@ -31,6 +32,10 @@ namespace Wordly.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Word>> GetAllWords()
         {
+            ClaimsPrincipal currentUser = this.User;
+            string currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            _logger.LogInformation(currentUserId);
+
             var words = _repository.GetAllWords();
             return Ok(words);
         }
