@@ -68,7 +68,7 @@ namespace Wordly
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddScoped<IWordRepo, MockWordRepo>();
+            services.AddScoped<IWordRepo, SqlWordRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

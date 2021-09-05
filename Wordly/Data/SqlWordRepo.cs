@@ -36,7 +36,16 @@ namespace Wordly.Data
 
         public IEnumerable<Word> GetAllWords(string userId)
         {
-            return _context.Words.Where(p => p.UserId == userId).ToList();
+            var words = new List<Word>
+            {
+                new Word { Id = 0, Body = "Make bread", Meaning = "Deez" },
+                new Word { Id = 1, Body = "Go to shops", Meaning = "Ligma" },
+                new Word { Id = 2, Body = "Eat", Meaning = "Nuts" },
+            };
+
+            return words;
+
+            // return _context.Words.Where(p => p.UserId == userId).ToList();
         }
 
         public Word GetWordById(int id)

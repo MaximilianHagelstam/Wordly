@@ -30,6 +30,11 @@ namespace Wordly.Data
             return words;
         }
 
+        public IEnumerable<Word> GetAllWords(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Word GetWordById(int id)
         {
             return new Word { Id = 0, Body = "Eat", Meaning = "Nuts" };
