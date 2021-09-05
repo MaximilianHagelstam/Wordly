@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Wordly.Models;
 
 namespace Wordly.Data
@@ -22,7 +21,7 @@ namespace Wordly.Data
                 throw new ArgumentNullException(nameof(word));
             }
 
-            throw new NotImplementedException();
+            _context.Words.Add(word);
         }
 
         public void DeleteWord(Word word)
@@ -32,17 +31,17 @@ namespace Wordly.Data
                 throw new ArgumentNullException(nameof(word));
             }
 
-            throw new NotImplementedException();
+            _context.Words.Remove(word);
         }
 
         public IEnumerable<Word> GetAllWords()
         {
-            throw new NotImplementedException();
+            return _context.Words.ToList();
         }
 
         public Word GetWordById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Words.FirstOrDefault(p => p.Id == id);
         }
 
         public bool SaveChanges()

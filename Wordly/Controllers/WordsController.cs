@@ -7,9 +7,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Wordly.Data;
+using Wordly.Dtos;
 using Wordly.Models;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Wordly.Controllers
 {
@@ -28,40 +27,43 @@ namespace Wordly.Controllers
             _logger = logger;
         }
 
-        // GET: api/<WordsController>
         [HttpGet]
         public ActionResult<IEnumerable<Word>> GetAllWords()
         {
-            ClaimsPrincipal currentUser = this.User;
-            string currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-            _logger.LogInformation(currentUserId);
-
             var words = _repository.GetAllWords();
             return Ok(words);
         }
 
-        // GET api/<WordsController>/5
         [HttpGet("{id}")]
-        public ActionResult<Word> Get(int id)
+        public ActionResult<Word> GetWordById(int id)
         {
             return Ok(_repository.GetWordById(id));
         }
 
-        // POST api/<WordsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<WordReadDto> CreateWord(WordCreateDto wordCreateDto)
         {
+            ClaimsPrincipal currentUser = this.User;
+            string currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var wordModel = _mapper.Map<Word>(wordCreateDto);
+            wordModel.UserId = currentUserId;
+
+            _repository.CreateWord(wordModel);
+            _repository.SaveChanges();
+
+            var wordReadDto = _mapper.Map<WordReadDto>(wordModel);
+
+            return CreatedAtRoute(nameof(GetWordById), new { wordReadDto.Id }, wordReadDto);
         }
 
-        // PUT api/<WordsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void UpdateWord(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<WordsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void DeleteWord(int id)
         {
         }
     }
