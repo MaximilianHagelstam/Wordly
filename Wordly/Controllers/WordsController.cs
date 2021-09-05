@@ -28,10 +28,13 @@ namespace Wordly.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Word>> GetAllWords()
+        public ActionResult<IEnumerable<WordReadDto>> GetAllWords()
         {
-            var words = _repository.GetAllWords();
-            return Ok(words);
+            ClaimsPrincipal currentUser = this.User;
+            string currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var words = _repository.GetAllWords(currentUserId);
+            return Ok(_mapper.Map<IEnumerable<WordReadDto>>(words));
         }
 
         [HttpGet("{id}")]

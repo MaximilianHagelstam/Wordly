@@ -34,9 +34,9 @@ namespace Wordly.Data
             _context.Words.Remove(word);
         }
 
-        public IEnumerable<Word> GetAllWords()
+        public IEnumerable<Word> GetAllWords(string userId)
         {
-            return _context.Words.ToList();
+            return _context.Words.Where(p => p.UserId == userId).ToList();
         }
 
         public Word GetWordById(int id)
