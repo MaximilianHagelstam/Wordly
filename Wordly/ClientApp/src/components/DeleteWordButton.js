@@ -5,12 +5,14 @@ import authService from './api-authorization/AuthorizeService';
 export const DeleteWordButton = ({ wordId }) => {
   const deleteWord = async () => {
     const token = await authService.getAccessToken();
-    await fetch(`api/words${wordId}`, {
+    await fetch(`api/words/${wordId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    window.location.reload(false);
   };
 
   return (

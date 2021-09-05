@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import authService from './api-authorization/AuthorizeService';
 import AddWordForm from './AddWordForm';
+import { DeleteWordButton } from './DeleteWordButton';
 
 export class Words extends Component {
   constructor(props) {
@@ -19,13 +20,17 @@ export class Words extends Component {
           <tr>
             <th>Word</th>
             <th>Meaning</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {words.map((words) => (
-            <tr key={words.id}>
-              <td>{words.body}</td>
-              <td>{words.meaning}</td>
+          {words.map((word) => (
+            <tr key={word.id}>
+              <td>{word.body}</td>
+              <td>{word.meaning}</td>
+              <td>
+                <DeleteWordButton wordId={word.id} />
+              </td>
             </tr>
           ))}
         </tbody>
