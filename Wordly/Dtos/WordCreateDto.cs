@@ -7,6 +7,7 @@ namespace Wordly.Dtos
         [Required]
         public string Body { get; set; }
 
+        [Required]
         public string Meaning { get; set; }
     }
 }

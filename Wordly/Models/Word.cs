@@ -10,6 +10,7 @@ namespace Wordly.Models
         [Required]
         public string Body { get; set; }
 
+        [Required]
         public string Meaning { get; set; }
 
         public string ApplicationUserId { get; set; }
