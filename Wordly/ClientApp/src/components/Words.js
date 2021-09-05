@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import authService from "./api-authorization/AuthorizeService";
+import React, { Component } from 'react';
+import authService from './api-authorization/AuthorizeService';
+import { AddWordForm } from './AddWordForm';
 
 export class Words extends Component {
   constructor(props) {
@@ -46,13 +47,15 @@ export class Words extends Component {
         <h1 id="tabelLabel">Word</h1>
         <p>This component demonstrates fetching words from the server.</p>
         {contents}
+
+        <AddWordForm />
       </div>
     );
   }
 
   async populateWordsData() {
     const token = await authService.getAccessToken();
-    const response = await fetch("api/words", {
+    const response = await fetch('api/words', {
       headers: !token ? {} : { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
