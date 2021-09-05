@@ -36,31 +36,24 @@ namespace Wordly.Data
 
         public IEnumerable<Word> GetAllWords(string userId)
         {
-            var words = new List<Word>
+            /* var words = new List<Word>
             {
                 new Word { Id = 0, Body = "Make bread", Meaning = "Deez" },
                 new Word { Id = 1, Body = "Go to shops", Meaning = "Ligma" },
                 new Word { Id = 2, Body = "Eat", Meaning = "Nuts" },
-            };
+            }; */
 
-            return words;
-
-            // return _context.Words.Where(p => p.UserId == userId).ToList();
+            return _context.Words.Where(p => p.ApplicationUserId == userId).ToList();
         }
 
-        public Word GetWordById(int id)
+        public Word GetWordById(int id, string userId)
         {
-            return _context.Words.FirstOrDefault(p => p.Id == id);
+            return _context.Words.FirstOrDefault(p => p.Id == id && p.ApplicationUserId == userId);
         }
 
         public bool SaveChanges()
         {
             return (_context.SaveChanges()) > 0;
-        }
-
-        public void UpdateWord(Word word)
-        {
-            // Empty
         }
     }
 }

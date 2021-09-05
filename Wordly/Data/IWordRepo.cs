@@ -7,9 +7,8 @@ namespace Wordly.Data
     {
         bool SaveChanges();
         IEnumerable<Word> GetAllWords(string userId);
-        Word GetWordById(int id);
+        Word GetWordById(int id, string userId);
         void CreateWord(Word word);
-        void UpdateWord(Word word);
         void DeleteWord(Word word);
     }
 }

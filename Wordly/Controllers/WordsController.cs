@@ -30,17 +30,45 @@ namespace Wordly.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<WordReadDto>> GetAllWords()
         {
-            ClaimsPrincipal currentUser = this.User;
-            string currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string currentUserId;
+
+            try
+            {
+                ClaimsPrincipal currentUser = this.User;
+                currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
             var words = _repository.GetAllWords(currentUserId);
             return Ok(_mapper.Map<IEnumerable<WordReadDto>>(words));
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Word> GetWordById(int id)
+        [HttpGet("{id}", Name = "GetWordById")]
+        public ActionResult<WordReadDto> GetWordById(int id)
         {
-            return Ok(_repository.GetWordById(id));
+            string currentUserId;
+
+            try
+            {
+                ClaimsPrincipal currentUser = this.User;
+                currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            var word = _repository.GetWordById(id, currentUserId);
+
+            if (word != null)
+            {
+                return Ok(_mapper.Map<WordReadDto>(word));
+            }
+
+            return NotFound();
         }
 
         [HttpPost]
@@ -50,19 +78,14 @@ namespace Wordly.Controllers
             string currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             var wordModel = _mapper.Map<Word>(wordCreateDto);
-            wordModel.UserId = currentUserId;
+            wordModel.ApplicationUserId = currentUserId;
 
             _repository.CreateWord(wordModel);
             _repository.SaveChanges();
 
             var wordReadDto = _mapper.Map<WordReadDto>(wordModel);
 
-            return CreatedAtRoute(nameof(GetWordById), new { wordReadDto.Id }, wordReadDto);
-        }
-
-        [HttpPut("{id}")]
-        public void UpdateWord(int id, [FromBody] string value)
-        {
+            return CreatedAtRoute(nameof(GetWordById), new { wordModel.Id }, wordReadDto);
         }
 
         [HttpDelete("{id}")]

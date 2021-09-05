@@ -12,10 +12,8 @@ namespace Wordly.Models
 
         public string Meaning { get; set; }
 
-        [Required]
-        public string UserId { get; set; }
+        public string ApplicationUserId { get; set; }
 
-        [Required]
-        public ApplicationUser ApplicationUser { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
