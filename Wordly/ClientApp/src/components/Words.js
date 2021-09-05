@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import authService from './api-authorization/AuthorizeService';
-import { AddWordForm } from './AddWordForm';
+import AddWordForm from './AddWordForm';
 
 export class Words extends Component {
   constructor(props) {
@@ -44,8 +44,7 @@ export class Words extends Component {
 
     return (
       <div>
-        <h1 id="tabelLabel">Word</h1>
-        <p>This component demonstrates fetching words from the server.</p>
+        <h1 id="tabelLabel">Words</h1>
         {contents}
 
         <AddWordForm />
