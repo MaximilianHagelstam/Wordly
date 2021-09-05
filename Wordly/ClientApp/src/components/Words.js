@@ -49,7 +49,7 @@ export class Words extends Component {
 
     return (
       <div>
-        <h1 id="tabelLabel">Words</h1>
+        <h1 id="tabelLabel">My Words</h1>
         {contents}
 
         <AddWordForm />

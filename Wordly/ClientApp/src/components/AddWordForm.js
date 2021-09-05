@@ -48,7 +48,7 @@ class AddWordForm extends Component {
             type="text"
             name="meaning"
             id="formMeaning"
-            placeholder="Enter a meaning"
+            placeholder="Enter a meaning for the word"
             onChange={(e) => {
               this.setState({ meaning: e.target.value });
             }}
