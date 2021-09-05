@@ -13,7 +13,7 @@ class AddWordForm extends Component {
       <Form
         onSubmit={async () => {
           const token = await authService.getAccessToken();
-          const response = await fetch('api/words', {
+          await fetch('api/words', {
             method: 'POST',
             headers: {
               Authorization: `Bearer ${token}`,
@@ -25,7 +25,6 @@ class AddWordForm extends Component {
               meaning: this.state.meaning,
             }),
           });
-          console.log(JSON.stringify(response));
         }}
       >
         <FormGroup>
@@ -56,7 +55,7 @@ class AddWordForm extends Component {
           />
         </FormGroup>
 
-        <Button>Add</Button>
+        <Button color="primary">Add</Button>
       </Form>
     );
   }

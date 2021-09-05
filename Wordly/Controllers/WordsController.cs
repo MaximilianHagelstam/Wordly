@@ -89,8 +89,32 @@ namespace Wordly.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void DeleteWord(int id)
+        public ActionResult DeleteWord(int id)
         {
+            string currentUserId;
+
+            try
+            {
+                ClaimsPrincipal currentUser = this.User;
+                currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            var wordModelFromRepo = _repository.GetWordById(id, currentUserId);
+
+            if (wordModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            _repository.DeleteWord(wordModelFromRepo);
+
+            _repository.SaveChanges();
+
+            return NoContent();
         }
     }
 }
