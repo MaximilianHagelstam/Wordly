@@ -5,6 +5,7 @@ import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
 import { Words } from './components/Words';
+import { Home } from './components/Home';
 
 import './custom.css';
 
@@ -14,7 +15,8 @@ export default class App extends Component {
   render() {
     return (
       <Layout>
-        <AuthorizeRoute path="/" component={Words} />
+        <Route exact path="/" component={Home} />
+        <AuthorizeRoute path="/words" component={Words} />
         <Route
           path={ApplicationPaths.ApiAuthorizationPrefix}
           component={ApiAuthorizationRoutes}
